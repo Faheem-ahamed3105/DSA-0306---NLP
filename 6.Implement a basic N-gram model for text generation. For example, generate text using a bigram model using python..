@@ -1,27 +1,26 @@
 import random
 
-def generate_bigram_model(text):
-    # Split the text into words
+def create_bigram_model(text):
     words = text.split()
+    bigram_model = {}
     
-    # Create a dictionary to store bigrams
-    bigrams = {}
-    for i in range(len(words) - 1):
-        if words[i] not in bigrams:
-            bigrams[words[i]] = []
-        bigrams[words[i]].append(words[i + 1])
+    for i in range(len(words)-1):
+        current_word = words[i]
+        next_word = words[i+1]
+        
+        if current_word not in bigram_model:
+            bigram_model[current_word] = []
+        bigram_model[current_word].append(next_word)
     
-    return bigrams
+    return bigram_model
 
-def generate_text(bigrams, start_word, length=10):
-    # Initialize the generated text with the starting word
-    generated_text = [start_word]
-    current_word = start_word
+def generate_text(bigram_model, starting_word, length=10):
+    current_word = starting_word
+    generated_text = [current_word]
     
-    # Generate text based on bigram model
-    for _ in range(length - 1):
-        if current_word in bigrams:
-            next_word = random.choice(bigrams[current_word])
+    for _ in range(length-1):
+        if current_word in bigram_model:
+            next_word = random.choice(bigram_model[current_word])
             generated_text.append(next_word)
             current_word = next_word
         else:
@@ -29,12 +28,12 @@ def generate_text(bigrams, start_word, length=10):
     
     return ' '.join(generated_text)
 
-# Example text
-text = "The quick brown fox jumps over the lazy dog"
+# Example Usage
+text_corpus = "This is a simple example of a bigram model for text generation. You can modify the input text as needed."
+bigram_model = create_bigram_model(text_corpus)
 
-# Generate bigram model
-bigram_model = generate_bigram_model(text)
+starting_word = "This"
+generated_text = generate_text(bigram_model, starting_word, length=15)
 
-# Generate text using bigram model
-generated_text = generate_text(bigram_model, start_word="The", length=10)
-print("Generated Text:", generated_text)
+print("Generated Text:")
+print(generated_text)
