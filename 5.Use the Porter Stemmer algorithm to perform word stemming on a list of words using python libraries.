@@ -1,25 +1,15 @@
-import nltk
 from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
 
-def perform_stemming(words):
-    stemmer = PorterStemmer()
-    stemmed_words = [stemmer.stem(word) for word in words]
-    return stemmed_words
+# List of words to perform stemming on
+words = ["running", "easily", "friendship", "beautifully"]
 
-def main():
-    # Sample list of words
-    words = ['running', 'easily', 'friendship', 'flying', 'dogs', 'cats', 'better']
+# Initialize the Porter Stemmer
+porter = PorterStemmer()
 
-    # Perform stemming
-    stemmed_words = perform_stemming(words)
+# Perform stemming on the list of words
+stemmed_words = [porter.stem(word) for word in words]
 
-    # Print the original words and their stemmed forms
-    for original, stemmed in zip(words, stemmed_words):
-        print(f"Original: {original} --> Stemmed: {stemmed}")
-
-if __name__ == "__main__":
-    # Download the NLTK data required for stemming (if not already downloaded)
-    nltk.download('punkt')
-
-    # Run the main function
-    main()
+# Display the stemmed words
+for original, stemmed in zip(words, stemmed_words):
+    print(f"Original: {original} -> Stemmed: {stemmed}")
